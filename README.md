@@ -161,7 +161,6 @@ task.spawn(function()
 		-------------------------------------------||
 		
 		for i, v in pairs(game.Workspace:GetDescendants()) do
-			task.wait()
 			if v:IsA("Humanoid") then
 				if Char ~= nil and HRP ~= nil then
 					
