@@ -23,7 +23,7 @@ ScrollFrame.Position = UDim2.new(1, 0,0.5, 0)
 
 local Scroll = Instance.new("ScrollingFrame", ScrollFrame)
 Scroll.Size = UDim2.new(1,0,1,0)
-Scroll.ScrollBarThickness = 1
+Scroll.ScrollBarThickness = .1
 Scroll.ScrollBarImageTransparency = 1
 
 local ListLayout = Instance.new("UIListLayout", Scroll)
