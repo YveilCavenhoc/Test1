@@ -17,7 +17,7 @@ ScreenG.Parent = lclplr.PlayerGui
 ScreenG.ResetOnSpawn = false
 
 local ScrollFrame = Instance.new("Frame", ScreenG)
-ScrollFrame.Size = UDim2.new(.1,0,.5,0)
+ScrollFrame.Size = UDim2.new(.05,0,.5,0)
 ScrollFrame.AnchorPoint = Vector2.new(1,.5)
 ScrollFrame.Position = UDim2.new(1, 0,0.5, 0)
 
