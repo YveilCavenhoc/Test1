@@ -39,6 +39,7 @@ local function CreateButton(Text)
 	local Button = Instance.new("TextButton", Frame)
 	Button.Size = UDim2.new(1,0,1,0)
 	Button.Text = Text
+	Button.BackgroundColor3 = Color3.new(1, 1, 1)
 	
 	return Button
 end
@@ -186,12 +187,19 @@ task.spawn(function()
 			NewTextLabel.TextStrokeTransparency = 0
 			NewTextLabel.RichText = true
 			
-			NewTextLabel.Text = tostring(
-				NameColors(CharOfHumanoid.Name)..
-				"\n"..
-				"Studs: "..
-				math.floor((CharOfHumanoid.HumanoidRootPart.Position - HRP.Position).magnitude)
-			)
+			if CharOfHumanoid.HumanoidRootPart then
+				NewTextLabel.Text = tostring(
+					NameColors(CharOfHumanoid.Name)..
+						"\n"..
+						"Studs: "..
+						math.floor((CharOfHumanoid.HumanoidRootPart.Position - HRP.Position).magnitude)
+				)
+			else
+				NewTextLabel.Text = tostring(
+					NameColors(CharOfHumanoid.Name)
+				)
+			end
+			
 			
 			task.delay(.25, function()
 				NewBillboard:Destroy()
@@ -224,27 +232,43 @@ end)
 
 
 --------------------------------------------------------------------------------------------||| Button Triggers
+local function ButtonColor(ButtonPressed, Bool)
+	if Bool == true then
+		ButtonPressed.BackgroundColor3 = Color3.new(0.0666667, 1, 0)
+	else
+		ButtonPressed.BackgroundColor3 = Color3.new(1, 1, 1)
+	end
+	
+end
+
+
 PlatformButton.Activated:Connect(function(touchpos, gamepro)
 	if PlatformBool == false then
 		PlatformBool = true
+		ButtonColor(PlatformButton, true)
 	else
 		PlatformBool = false
+		ButtonColor(PlatformButton, false)
 	end
 end)
 
 HumanoidInfoButton.Activated:Connect(function(touchpos, gamepro)
 	if HumanoidInfo == false then
 		HumanoidInfo = true
+		ButtonColor(HumanoidInfoButton, true)
 	else
 		HumanoidInfo = false
+		ButtonColor(HumanoidInfoButton, false)
 	end
 end)
 
 NoclipButton.Activated:Connect(function(touchpos, gamepro)
 	if NoclipBool == false then
 		NoclipBool = true
+		ButtonColor(NoclipButton, true)
 	else
 		NoclipBool = false
+		ButtonColor(NoclipButton, false)
 	end
 end)
 --------------------------------------------------------------------------------------------|||
