@@ -54,14 +54,14 @@ local function ReplacePlat()
 	local PlatOffset = 0
 	
 	if UIS:IsKeyDown(Enum.KeyCode.LeftControl) then
-		PlatOffset += - -.1
+		PlatOffset += -.4
 	end
-	if UIS:IsKeyDown(Enum.KeyCode.Space) then
-		PlatOffset += - .1
+	if UIS:IsKeyDown(Enum.KeyCode.E) then
+		PlatOffset += 1
 	end
 	
 	local NewP = Instance.new("Part", workspace)
-	NewP.Size = Vector3.new(10,.001,10)
+	NewP.Size = Vector3.new(50,.001,50)
 	NewP.CFrame = CFrame.new(HRP.Position.X,math.floor(HRP.Position.Y)-2.9+PlatOffset,HRP.Position.Z) 
 	NewP.Transparency = 1
 	PartVar = NewP
@@ -69,7 +69,7 @@ end
 
 local function MakePlat()
 	local NewP = Instance.new("Part", workspace)
-	NewP.Size = Vector3.new(10,1,10)
+	NewP.Size = Vector3.new(50,1,50)
 	NewP.CFrame = HRP.CFrame * CFrame.new(0,-3,0)
 	NewP.Transparency = 1
 	PartVar = NewP
