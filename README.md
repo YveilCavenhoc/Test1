@@ -8,6 +8,7 @@ local PartVar
 --------------------------------------------------------------------------------------------||| Booleans
 local PlatformBool = false
 local HumanoidInfo = false
+local NoclipBool = false
 --------------------------------------------------------------------------------------------|||
 
 
@@ -44,6 +45,7 @@ end
 
 local PlatformButton = CreateButton("Platform")
 local HumanoidInfoButton = CreateButton("Humanoid Info")
+local NoclipButton = CreateButton("Noclip")
 --------------------------------------------------------------------------------------------|||
 
 
@@ -53,10 +55,10 @@ local function ReplacePlat()
 	
 	local PlatOffset = 0
 	
-	if UIS:IsKeyDown(Enum.KeyCode.LeftControl) then
+	if UIS:IsKeyDown(Enum.KeyCode.Z) then
 		PlatOffset += -.4
 	end
-	if UIS:IsKeyDown(Enum.KeyCode.E) then
+	if UIS:IsKeyDown(Enum.KeyCode.X) then
 		PlatOffset += 1
 	end
 	
@@ -73,6 +75,25 @@ local function MakePlat()
 	NewP.CFrame = HRP.CFrame * CFrame.new(0,-3,0)
 	NewP.Transparency = 1
 	PartVar = NewP
+end
+--------------------------------------------------------------------------------------------|||
+
+--------------------------------------------------------------------------------------------||| Noclip
+
+local function EnableNoclip()
+	for i, v in pairs(Char:GetChildren()) do
+		if v:IsA("Part") or v:IsA("MeshPart") then
+			v.CanCollide = false
+		end
+	end
+end
+
+local function DisableNoclip()
+	for i, v in pairs(Char:GetChildren()) do
+		if v:IsA("Part") or v:IsA("MeshPart") then
+			v.CanCollide = true
+		end
+	end
 end
 --------------------------------------------------------------------------------------------|||
 
@@ -107,8 +128,15 @@ local RunningService = RunS.Heartbeat:Connect(function(dt)
 	end
 	-------------------------------------------||
 	
-	
-	
+	-------------------------------------------|| Noclip
+	if Char ~= nil and HRP ~= nil then
+		if NoclipBool == true then
+			EnableNoclip()
+		else
+			DisableNoclip()
+		end
+	end
+	-------------------------------------------||
 	
 end)
 --------------------------------------------------------------------------------------------|||
@@ -209,6 +237,14 @@ HumanoidInfoButton.Activated:Connect(function(touchpos, gamepro)
 		HumanoidInfo = true
 	else
 		HumanoidInfo = false
+	end
+end)
+
+NoclipButton.Activated:Connect(function(touchpos, gamepro)
+	if NoclipBool == false then
+		NoclipBool = true
+	else
+		NoclipBool = false
 	end
 end)
 --------------------------------------------------------------------------------------------|||
