@@ -187,7 +187,7 @@ task.spawn(function()
 			NewTextLabel.TextStrokeTransparency = 0
 			NewTextLabel.RichText = true
 			
-			if CharOfHumanoid.HumanoidRootPart then
+			if CharOfHumanoid:FindFirstChild("HumanoidRootPart") then
 				NewTextLabel.Text = tostring(
 					NameColors(CharOfHumanoid.Name)..
 						"\n"..
