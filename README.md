@@ -165,9 +165,24 @@ task.spawn(function()
 		end
 		
 		local function CreateHumanoidInfo(CharOfHumanoid)
-			local HeadOfChar = CharOfHumanoid.Head
+			local BillBoardParent
 			
-			local NewBillboard = Instance.new("BillboardGui", HeadOfChar)
+			if CharOfHumanoid:FindFirstChild("Head") then
+				BillBoardParent = CharOfHumanoid.Head
+			end
+			if BillBoardParent == nil then
+				for i, v in pairs(CharOfHumanoid:GetChildren()) do
+					if v:IsA("Part") or v:IsA("MeshPart") then
+						BillBoardParent = v
+					end
+				end
+			end
+			if BillBoardParent == nil then
+				return 0
+			end
+			
+			
+			local NewBillboard = Instance.new("BillboardGui", BillBoardParent)
 			NewBillboard.AlwaysOnTop = true
 			NewBillboard.ResetOnSpawn = false
 			NewBillboard.Enabled = true
