@@ -52,6 +52,7 @@ local function ReplacePlat()
 	local NewP = Instance.new("Part", workspace)
 	NewP.Size = Vector3.new(10,.001,10)
 	NewP.CFrame = CFrame.new(HRP.Position.X,math.floor(HRP.Position.Y)-2.9,HRP.Position.Z) 
+	NewP.Transparency = 1
 	PartVar = NewP
 end
 
@@ -59,6 +60,7 @@ local function MakePlat()
 	local NewP = Instance.new("Part", workspace)
 	NewP.Size = Vector3.new(10,1,10)
 	NewP.CFrame = HRP.CFrame * CFrame.new(0,-3,0)
+	NewP.Transparency = 1
 	PartVar = NewP
 end
 --------------------------------------------------------------------------------------------|||
