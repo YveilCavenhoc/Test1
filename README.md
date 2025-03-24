@@ -51,9 +51,18 @@ local HumanoidInfoButton = CreateButton("Humanoid Info")
 local function ReplacePlat()
 	PartVar:Destroy()
 	
+	local PlatOffset = 0
+	
+	if UIS:IsKeyDown(Enum.KeyCode.LeftControl) then
+		PlatOffset += - -.1
+	end
+	if UIS:IsKeyDown(Enum.KeyCode.Space) then
+		PlatOffset += - .1
+	end
+	
 	local NewP = Instance.new("Part", workspace)
 	NewP.Size = Vector3.new(10,.001,10)
-	NewP.CFrame = CFrame.new(HRP.Position.X,math.floor(HRP.Position.Y)-2.9,HRP.Position.Z) 
+	NewP.CFrame = CFrame.new(HRP.Position.X,math.floor(HRP.Position.Y)-2.9+PlatOffset,HRP.Position.Z) 
 	NewP.Transparency = 1
 	PartVar = NewP
 end
