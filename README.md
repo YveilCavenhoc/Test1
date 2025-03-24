@@ -90,7 +90,7 @@ end
 
 local function DisableNoclip()
 	for i, v in pairs(Char:GetChildren()) do
-		if v:IsA("Part") or v:IsA("MeshPart") then
+		if v.Name == "HumanoidRootPart" then
 			v.CanCollide = true
 		end
 	end
