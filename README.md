@@ -149,7 +149,9 @@ task.spawn(function()
 		
 		-------------------------------------------|| Humanoid Info
 		local MarkedNames = {
-			"Rake"
+			"Rake",
+			"Zombie",
+			"Killer",
 		}
 		
 		local function NameColors(NameOfChar)
