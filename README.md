@@ -1,6 +1,5 @@
 local RunS = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
-local TS = game:GetService("TweenService")
 local lclplr = game.Players.LocalPlayer
 local Char
 local HRP
@@ -117,37 +116,50 @@ end
 --------------------------------------------------------------------------------------------|||
 
 --------------------------------------------------------------------------------------------||| Fly
+local FlyDebounceBool = false
+
+local function FlyDebouncing()
+	task.spawn(function()
+		FlyDebounceBool = true
+		task.wait(.02)
+		FlyDebounceBool = false
+	end)
+end
+
+
+local function FlyDebounce()
+	if FlyDebounceBool == false then
+		FlyDebouncing()
+		return true
+	else
+		return false
+	end
+end
 
 local function EnableFly(dt)
-	HRP.Anchored = true
-	local FlyStud = 1
-	
-	local FB = 0
-	local LR = 0
-	
-	if UIS:IsKeyDown(Enum.KeyCode.W) then
-		FB += -FlyStud
+	if FlyDebounce() == false then
+		HRP.Anchored = true
+		local FlyStud = 1
+
+		local FB = 0
+		local LR = 0
+
+		if UIS:IsKeyDown(Enum.KeyCode.W) then
+			FB += -FlyStud
+		end
+		if UIS:IsKeyDown(Enum.KeyCode.A) then
+			LR += -FlyStud
+		end
+		if UIS:IsKeyDown(Enum.KeyCode.S) then
+			FB += FlyStud
+		end
+		if UIS:IsKeyDown(Enum.KeyCode.D) then
+			LR += FlyStud
+		end
+
+		HRP.CFrame = CFrame.new(HRP.Position) * MovementStud(Vector3.new(LR,0,FB))
+		HRP.Anchored = false
 	end
-	if UIS:IsKeyDown(Enum.KeyCode.A) then
-		LR += -FlyStud
-	end
-	if UIS:IsKeyDown(Enum.KeyCode.S) then
-		FB += FlyStud
-	end
-	if UIS:IsKeyDown(Enum.KeyCode.D) then
-		LR += FlyStud
-	end
-	
-	local TI = TweenInfo.new(
-		dt,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut,0,false,0
-	)
-	local goal = {
-		["CFrame"] = CFrame.new(HRP.Position) * MovementStud(Vector3.new(LR,0,FB)),
-	}
-	
-	TS:Create(HRP,TI,goal):Play()
-	
-	HRP.Anchored = false
 end
 
 local function DisableFly()
