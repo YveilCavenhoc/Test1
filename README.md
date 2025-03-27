@@ -139,6 +139,8 @@ local function EnableFly()
 	end
 	
 	HRP.CFrame = CFrame.new(HRP.Position) * MovementStud(Vector3.new(LR,0,FB))
+	task.wait(.1)
+	HRP.Anchored = false
 end
 
 local function DisableFly()
