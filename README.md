@@ -116,32 +116,9 @@ end
 --------------------------------------------------------------------------------------------|||
 
 --------------------------------------------------------------------------------------------||| Fly
-local FlyDebounceBool = false
-
-local function FlyDebouncing()
-	task.spawn(function()
-		FlyDebounceBool = true
-		task.wait(.01)
-		FlyDebounceBool = false
-	end)
-end
-
-
-local function FlyDebounce()
-	if FlyDebounceBool == false then
-		FlyDebouncing()
-		return true
-	else
-		return false
-	end
-end
 
 local function EnableFly(dt)
-	if FlyDebounce() == true then
-		HRP.Anchored = false
-	else
-		HRP.Anchored = true
-	end
+	HRP.Anchored = true
 	
 	local FlyStud = 1
 
