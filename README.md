@@ -3,6 +3,7 @@ local UIS = game:GetService("UserInputService")
 local lclplr = game.Players.LocalPlayer
 local Char
 local HRP
+local Hum
 local PartVar
 
 local function BodyRotationCam()
@@ -119,6 +120,7 @@ end
 
 local function EnableFly(dt)
 	HRP.Anchored = true
+	Hum.PlatformStand = true
 	
 	local FlyStud = 1
 
@@ -143,6 +145,7 @@ end
 
 local function DisableFly()
 	HRP.Anchored = false
+	Hum.PlatformStand = false
 end
 
 --------------------------------------------------------------------------------------------|||
@@ -158,6 +161,7 @@ end
 local RunningService = RunS.Heartbeat:Connect(function(dt)
 	Char = lclplr.Character
 	HRP = Char.HumanoidRootPart
+	Hum = Char.Humanoid
 	
 	-------------------------------------------|| Platform
 	if Char ~= nil and HRP ~= nil then
