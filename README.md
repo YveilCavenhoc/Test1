@@ -121,7 +121,7 @@ local FlyDebounceBool = false
 local function FlyDebouncing()
 	task.spawn(function()
 		FlyDebounceBool = true
-		task.wait(.02)
+		task.wait(.1)
 		FlyDebounceBool = false
 	end)
 end
@@ -137,29 +137,31 @@ local function FlyDebounce()
 end
 
 local function EnableFly(dt)
-	if FlyDebounce() == false then
-		HRP.Anchored = true
-		local FlyStud = 1
-
-		local FB = 0
-		local LR = 0
-
-		if UIS:IsKeyDown(Enum.KeyCode.W) then
-			FB += -FlyStud
-		end
-		if UIS:IsKeyDown(Enum.KeyCode.A) then
-			LR += -FlyStud
-		end
-		if UIS:IsKeyDown(Enum.KeyCode.S) then
-			FB += FlyStud
-		end
-		if UIS:IsKeyDown(Enum.KeyCode.D) then
-			LR += FlyStud
-		end
-
-		HRP.CFrame = CFrame.new(HRP.Position) * MovementStud(Vector3.new(LR,0,FB))
+	if FlyDebounce() == true then
 		HRP.Anchored = false
+	else
+		HRP.Anchored = true
 	end
+	
+	local FlyStud = 1
+
+	local FB = 0
+	local LR = 0
+
+	if UIS:IsKeyDown(Enum.KeyCode.W) then
+		FB += -FlyStud
+	end
+	if UIS:IsKeyDown(Enum.KeyCode.A) then
+		LR += -FlyStud
+	end
+	if UIS:IsKeyDown(Enum.KeyCode.S) then
+		FB += FlyStud
+	end
+	if UIS:IsKeyDown(Enum.KeyCode.D) then
+		LR += FlyStud
+	end
+
+	HRP.CFrame = CFrame.new(HRP.Position) * MovementStud(Vector3.new(LR,0,FB))
 end
 
 local function DisableFly()
