@@ -1,14 +1,31 @@
 local RunS = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
+local TS = game:GetService("TweenService")
 local lclplr = game.Players.LocalPlayer
 local Char
 local HRP
 local PartVar
 
+local function BodyRotationCam()
+	local Cam = workspace.CurrentCamera
+	local RX,RY,RZ = Cam.CFrame:ToOrientation()
+	return CFrame.Angles(0,RY,0) * CFrame.Angles(RX,0,0) 
+end
+
+local function MovementStud(vector)
+	local Cam = workspace.CurrentCamera
+	local RX,RY,RZ = Cam.CFrame:ToOrientation()
+	local CamAngle = CFrame.Angles(RX,0,0):Inverse() * CFrame.Angles(0,RY,0):Inverse()
+	return CFrame.new(Vector3.new(HRP.Position) + CamAngle:VectorToObjectSpace(vector)) * BodyRotationCam()
+end
+
+
+
 --------------------------------------------------------------------------------------------||| Booleans
 local PlatformBool = false
 local HumanoidInfo = false
 local NoclipBool = false
+local FlyBool = false
 --------------------------------------------------------------------------------------------|||
 
 
@@ -47,6 +64,7 @@ end
 local PlatformButton = CreateButton("Platform")
 local HumanoidInfoButton = CreateButton("Humanoid Info")
 local NoclipButton = CreateButton("Noclip")
+local FlyButton = CreateButton("Fly")
 --------------------------------------------------------------------------------------------|||
 
 
@@ -98,6 +116,37 @@ local function DisableNoclip()
 end
 --------------------------------------------------------------------------------------------|||
 
+--------------------------------------------------------------------------------------------||| Fly
+
+local function EnableFly()
+	HRP.Anchored = true
+	local FlyStud = 1
+	
+	local FB = 0
+	local LR = 0
+	
+	if UIS:IsKeyDown(Enum.KeyCode.W) then
+		FB += -FlyStud
+	end
+	if UIS:IsKeyDown(Enum.KeyCode.A) then
+		LR += -FlyStud
+	end
+	if UIS:IsKeyDown(Enum.KeyCode.S) then
+		FB += FlyStud
+	end
+	if UIS:IsKeyDown(Enum.KeyCode.D) then
+		LR += FlyStud
+	end
+	
+	HRP.CFrame = CFrame.new(HRP.Position) * MovementStud(Vector3.new(LR,0,FB))
+end
+
+local function DisableFly()
+	HRP.Anchored = false
+end
+
+--------------------------------------------------------------------------------------------|||
+
 
 
 
@@ -135,6 +184,16 @@ local RunningService = RunS.Heartbeat:Connect(function(dt)
 			EnableNoclip()
 		else
 			DisableNoclip()
+		end
+	end
+	-------------------------------------------||
+	
+	-------------------------------------------|| Fly
+	if Char ~= nil and HRP ~= nil then
+		if FlyBool == true then
+			EnableFly()
+		else
+			DisableFly()
 		end
 	end
 	-------------------------------------------||
@@ -286,6 +345,16 @@ NoclipButton.Activated:Connect(function(touchpos, gamepro)
 	else
 		NoclipBool = false
 		ButtonColor(NoclipButton, false)
+	end
+end)
+
+FlyButton.Activated:Connect(function(touchpos, gamepro)
+	if FlyBool == false then
+		FlyBool = true
+		ButtonColor(FlyButton, true)
+	else
+		FlyBool = false
+		ButtonColor(FlyButton, false)
 	end
 end)
 --------------------------------------------------------------------------------------------|||
