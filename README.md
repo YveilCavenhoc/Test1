@@ -118,7 +118,7 @@ end
 
 --------------------------------------------------------------------------------------------||| Fly
 
-local function EnableFly()
+local function EnableFly(dt)
 	HRP.Anchored = true
 	local FlyStud = 1
 	
@@ -138,8 +138,15 @@ local function EnableFly()
 		LR += FlyStud
 	end
 	
-	HRP.CFrame = CFrame.new(HRP.Position) * MovementStud(Vector3.new(LR,0,FB))
-	task.wait(.1)
+	local TI = TweenInfo.new(
+		dt,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut,0,false,0
+	)
+	local goal = {
+		["CFrame"] = CFrame.new(HRP.Position) * MovementStud(Vector3.new(LR,0,FB)),
+	}
+	
+	TS:Create(HRP,TI,goal):Play()
+	
 	HRP.Anchored = false
 end
 
@@ -193,7 +200,7 @@ local RunningService = RunS.Heartbeat:Connect(function(dt)
 	-------------------------------------------|| Fly
 	if Char ~= nil and HRP ~= nil then
 		if FlyBool == true then
-			EnableFly()
+			EnableFly(dt)
 		else
 			DisableFly()
 		end
