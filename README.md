@@ -121,7 +121,7 @@ local FlyDebounceBool = false
 local function FlyDebouncing()
 	task.spawn(function()
 		FlyDebounceBool = true
-		task.wait(.1)
+		task.wait(.01)
 		FlyDebounceBool = false
 	end)
 end
